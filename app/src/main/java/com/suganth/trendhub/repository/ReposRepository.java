@@ -7,6 +7,7 @@ import com.suganth.trendhub.database.RepoDataBase;
 import com.suganth.trendhub.model.RepoModel;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 import androidx.lifecycle.LiveData;
 
@@ -28,5 +29,10 @@ public class ReposRepository {
     public void insert(final List<RepoModel> repoModel){
             RepoDataBase.databaseWriteExecutor
                 .execute(() -> repoDao.insert(repoModel));
+    }
+
+    public Future<RepoModel> searchByName (String name)
+    {
+        return RepoDataBase.databaseWriteExecutor.submit(()->repoDao.searchByName(name));
     }
 }

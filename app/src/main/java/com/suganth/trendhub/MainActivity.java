@@ -1,18 +1,23 @@
 package com.suganth.trendhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.suganth.trendhub.adapter.RepoAdapter;
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private List<RepoModel> repoList;
     private ReposRepository reposRepository;
     private RepoAdapter repoAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +53,23 @@ public class MainActivity extends AppCompatActivity {
         reposRepository = new ReposRepository(getApplication());
         repoList = new ArrayList<>();
         repoAdapter = new RepoAdapter(this, repoList);
-
+        swipeRefreshLayout = findViewById(R.id.simpleSwipeRefreshLayout);
         repoViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(RepoViewModel.class);
-        networkRequest();
         repoViewModel.getAllRepos().observe(this, new Observer<List<RepoModel>>() {
             @Override
             public void onChanged(List<RepoModel> repoList) {
+                repoAdapter.setRepos(repoList);
                 recyclerView.setAdapter(repoAdapter);
                 repoAdapter.getAllRepos(repoList);
-                Log.d("main", "onChanged: "+repoList);
+                Log.d("main", "onChanged: " + repoList);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                networkRequest();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -76,5 +90,46 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    boolean containsName(List<RepoModel> repoModel, String name) {
+        for (RepoModel repo : repoModel) {
+            if (repo.getName().toUpperCase().contains(name))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.item_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (containsName(RepoAdapter.allRepos, s.toUpperCase()))
+                {
+                    repoAdapter.getFilter().filter(s);
+                }else
+                {
+                    Toast.makeText(getBaseContext(),
+                            "Not found",
+                            Toast.LENGTH_LONG)
+                            .show();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                repoAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
+        return true;
     }
 }

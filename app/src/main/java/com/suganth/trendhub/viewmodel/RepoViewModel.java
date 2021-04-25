@@ -6,6 +6,7 @@ import com.suganth.trendhub.model.RepoModel;
 import com.suganth.trendhub.repository.ReposRepository;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,9 +23,20 @@ public class RepoViewModel extends AndroidViewModel {
         mRepoModel = reposRepository.getAllRepos();
     }
 
-   public LiveData<List<RepoModel>> getAllRepos()
-    {
+    public LiveData<List<RepoModel>> getAllRepos() {
         return mRepoModel;
+    }
+
+    public RepoModel searchByName(String name) {
+        RepoModel repoModel = null;
+        try {
+            repoModel = reposRepository.searchByName(name).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return repoModel;
     }
 
 }

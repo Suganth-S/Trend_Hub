@@ -21,4 +21,7 @@ public interface RepoDao {
 
     @Query("DELETE FROM repositories")
     void deleteAll();
+
+    @Query("SELECT * FROM repositories WHERE name  == :name")
+    RepoModel searchByName (String name);
 }
