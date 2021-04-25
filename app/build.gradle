@@ -4,6 +4,11 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "com.suganth.trendhub"
         minSdkVersion 19
@@ -43,17 +48,18 @@ dependencies {
     //RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-     //CardView
+    //CardView
     implementation 'androidx.cardview:cardview:1.0.0'
 
-    //LiveData version
-    def lifecycle_version = "2.3.1"
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+    implementation "android.arch.lifecycle:extensions:2.2.0"
+
     // LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
-    // Annotation processor
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:2.2.0"
+
+    //lifecycle arch
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0"
 
     //Room Library
     implementation 'androidx.room:room-runtime:2.2.6'

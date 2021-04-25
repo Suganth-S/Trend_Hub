@@ -2,12 +2,16 @@ package com.suganth.trendhub.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "repository")
+@Entity(tableName = "repositories")
 public class RepoModel {
+    @PrimaryKey(autoGenerate = true)
+    private int repoId;
 
     @SerializedName("name")
     @ColumnInfo(name = "name")
@@ -23,13 +27,13 @@ public class RepoModel {
 
     @SerializedName("stars")
     @ColumnInfo(name = "stars")
-    private long stars;
+    private String stars;
 
     @SerializedName("languageColor")
     @ColumnInfo(name = "languageColor")
     private String color;
 
-    public RepoModel(String name, String description, String language, long stars, String color) {
+    public RepoModel(String name, String description, String language, String stars, String color) {
         this.name = name;
         this.description = description;
         this.language = language;
@@ -61,11 +65,11 @@ public class RepoModel {
         this.language = language;
     }
 
-    public long getStars() {
+    public String getStars() {
         return stars;
     }
 
-    public void setStars(long stars) {
+    public void setStars(String stars) {
         this.stars = stars;
     }
 
@@ -75,5 +79,27 @@ public class RepoModel {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public int getRepoId() {
+        return repoId;
+    }
+
+    public void setRepoId(int repoId) {
+        this.repoId = repoId;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "RepoModel{" +
+                ", repoId=" + repoId +
+                ", name=" + name +
+                ", description=" + description+
+                ", language='" + language + '\'' +
+                ", star='" + stars + '\'' +
+                ", color=" + color +
+                '}';
+
     }
 }

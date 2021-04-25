@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Trend Hub</string>
+    <string name="name">name</string>
+    <string name="description">description</string>
+    <string name="language">language</string>
+    <string name="_555555">555555</string>
 </resources>

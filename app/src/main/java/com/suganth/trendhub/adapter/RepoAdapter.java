@@ -38,20 +38,21 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
         holder.name.setText(repoModel.getName());
         holder.description.setText(repoModel.getDescription());
         holder.language.setText(repoModel.getLanguage());
-        holder.starsCount.setText((int) repoModel.getStars());
+        holder.starsCount.setText(repoModel.getStars());
 
         Glide.with(context)
                 .load(repoModel.getColor())
                 .into(holder.color);
     }
 
-    @Override
-    public int getItemCount() {
-        return repoList.size();
-    }
 
     public void getAllRepos (List<RepoModel> mRepoList) {
         this.repoList=mRepoList;
+    }
+
+    @Override
+    public int getItemCount() {
+        return repoList.size();
     }
 
     public static class RepoViewHolder extends RecyclerView.ViewHolder {

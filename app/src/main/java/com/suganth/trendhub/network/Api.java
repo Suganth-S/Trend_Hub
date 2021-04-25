@@ -10,5 +10,5 @@ import retrofit2.http.GET;
 public interface Api {
 
     @GET("repositories")
-    Call<List<RepoModel>> getLatestRepos();
+    Call<List<RepoModel>> getAllRepos();
 }
