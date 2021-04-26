@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#fff"
+    android:background="#000"
     tools:context=".MainActivity">
 
    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -17,7 +17,7 @@
        android:id="@+id/recyclerView"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:background="#fff"
+       android:background="#000"
        tools:listitem="@layout/repo_list" />
 
    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
