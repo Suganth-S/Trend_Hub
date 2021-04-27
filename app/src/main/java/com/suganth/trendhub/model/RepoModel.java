@@ -31,14 +31,23 @@ public class RepoModel {
 
     @SerializedName("languageColor")
     @ColumnInfo(name = "languageColor")
-    private String color;
+    private String languageColor;
 
-    public RepoModel(String name, String description, String language, String stars, String color) {
+    public RepoModel(int repoId, String name, String description, String language, String stars, String languageColor) {
+        this.repoId = repoId;
         this.name = name;
         this.description = description;
         this.language = language;
         this.stars = stars;
-        this.color = color;
+        this.languageColor = languageColor;
+    }
+
+    public int getRepoId() {
+        return repoId;
+    }
+
+    public void setRepoId(int repoId) {
+        this.repoId = repoId;
     }
 
     public String getName() {
@@ -73,20 +82,12 @@ public class RepoModel {
         this.stars = stars;
     }
 
-    public String getColor() {
-        return color;
+    public String getLanguageColor() {
+        return languageColor;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public int getRepoId() {
-        return repoId;
-    }
-
-    public void setRepoId(int repoId) {
-        this.repoId = repoId;
+    public void setLanguageColor(String languageColor) {
+        this.languageColor = languageColor;
     }
 
     @NonNull
@@ -98,7 +99,7 @@ public class RepoModel {
                 ", description=" + description+
                 ", language='" + language + '\'' +
                 ", star='" + stars + '\'' +
-                ", color=" + color +
+                ", languageColor=" + languageColor +
                 '}';
 
     }

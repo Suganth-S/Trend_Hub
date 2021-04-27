@@ -1,4 +1,4 @@
-package com.suganth.trendhub;
+package com.suganth.trendhub.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import android.view.Window;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.suganth.trendhub.R;
 import com.suganth.trendhub.adapter.RepoAdapter;
 import com.suganth.trendhub.model.RepoModel;
 import com.suganth.trendhub.network.Network;
@@ -31,7 +33,7 @@ import com.suganth.trendhub.viewmodel.RepoViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private RepoViewModel repoViewModel;
     private RecyclerView recyclerView;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         repoAdapter = new RepoAdapter(this, repoList);
         swipeRefreshLayout = findViewById(R.id.simpleSwipeRefreshLayout);
         repoViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(RepoViewModel.class);
+        networkRequest();
         repoViewModel.getAllRepos().observe(this, new Observer<List<RepoModel>>() {
             @Override
             public void onChanged(List<RepoModel> repoList) {
@@ -70,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("main", "onChanged: " + repoList);
             }
         });
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -81,19 +83,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void networkRequest() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Updating Repos");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         Network network = new Network();
         Call<List<RepoModel>> call = network.api.getAllRepos();
         call.enqueue(new Callback<List<RepoModel>>() {
             @Override
             public void onResponse(Call<List<RepoModel>> call, Response<List<RepoModel>> response) {
                 if (response.isSuccessful()) {
+                    progressDialog.dismiss();
                     reposRepository.insert(response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<List<RepoModel>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -117,11 +125,9 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                if (containsName(RepoAdapter.allRepos, s.toUpperCase()))
-                {
+                if (containsName(RepoAdapter.allRepos, s.toUpperCase())) {
                     repoAdapter.getFilter().filter(s);
-                }else
-                {
+                } else {
                     Toast.makeText(getBaseContext(),
                             "Not found",
                             Toast.LENGTH_LONG)

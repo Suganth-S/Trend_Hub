@@ -1,6 +1,7 @@
 package com.suganth.trendhub.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
         holder.starsCount.setText(repoModel.getStars());
 
         Glide.with(context)
-                .load(repoModel.getColor())
+                .load(repoModel.getLanguageColor())
                 .into(holder.color);
     }
 
@@ -98,7 +99,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
     public static class RepoViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name, description, language, starsCount;
-        public ImageView color;
+      public ImageView color;
 
         public RepoViewHolder(@NonNull View itemView) {
             super(itemView);

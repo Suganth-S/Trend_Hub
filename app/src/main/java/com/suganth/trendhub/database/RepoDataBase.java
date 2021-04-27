@@ -40,20 +40,13 @@ public abstract class RepoDataBase extends RoomDatabase {
         return INSTANCE;
     }
 
-
-    /**
-     * Override the onCreate method to populate the database.
-     * For this sample, we clear the database every time it is created.
-     */
-
-    private static RoomDatabase.Callback roomDataBaseCallBack = new RoomDatabase.Callback(){
+    private static RoomDatabase.Callback roomDataBaseCallBack = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             databaseWriteExecutor.execute(() -> {
                 RepoDao repoDao = INSTANCE.repoDao();
                 repoDao.deleteAll();
-
             });
         }
     };

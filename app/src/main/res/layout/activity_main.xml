@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#000"
-    tools:context=".MainActivity">
+    tools:context=".activity.HomeActivity">
 
    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
        android:id="@+id/simpleSwipeRefreshLayout"
