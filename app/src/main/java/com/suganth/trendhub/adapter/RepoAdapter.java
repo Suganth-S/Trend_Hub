@@ -19,6 +19,15 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * repoAdapter - An adapter class for recyclerView
+ * Returning params like
+ * @name,
+ * @description,
+ * @language,
+ * @stars
+ * @languageColor
+ */
 public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder> {
     private Context context;
     private List<RepoModel> repoList;
@@ -99,6 +108,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
     public static class RepoViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name, description, language, starsCount;
+        //public String color;
       public ImageView color;
 
         public RepoViewHolder(@NonNull View itemView) {

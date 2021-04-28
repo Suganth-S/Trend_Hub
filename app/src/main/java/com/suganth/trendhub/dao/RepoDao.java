@@ -10,6 +10,12 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+/**
+ * RepoDao - A Dao class which handles method in database
+ * getAllRepos() - to fetch locally stored data
+ * deleteAll() - to delete all stored datas
+ * searchByname() - to filter repos according to name
+ */
 @Dao
 public interface RepoDao {
 

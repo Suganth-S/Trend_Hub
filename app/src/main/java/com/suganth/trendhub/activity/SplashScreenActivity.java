@@ -15,6 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * SplashScreenActivity - Used for an initial intro of application
+ * isNetworkAvailable() - used to decide to view in offline or else to connect network
+ */
 public class SplashScreenActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
 

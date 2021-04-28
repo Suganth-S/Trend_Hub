@@ -8,6 +8,9 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+/**
+ * RepoModel - an model and entity class for data fetched
+ */
 @Entity(tableName = "repositories")
 public class RepoModel {
     @PrimaryKey(autoGenerate = true)

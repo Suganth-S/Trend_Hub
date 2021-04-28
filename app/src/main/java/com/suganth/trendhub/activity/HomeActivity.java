@@ -33,6 +33,13 @@ import com.suganth.trendhub.viewmodel.RepoViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * HomeActivity - an activity which displays the list of datas from an API
+ * @swipeRefreshLayout - used to pull and refresh to fetch api
+ * networkRequest() - method used to handle request and response.
+ * onCrateOptionsMenu() - a menu item with search filter to sort according to out search condition.
+*/
+
 public class HomeActivity extends AppCompatActivity {
 
     private RepoViewModel repoViewModel;
@@ -101,7 +108,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<RepoModel>> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Check your Network Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -129,7 +136,7 @@ public class HomeActivity extends AppCompatActivity {
                     repoAdapter.getFilter().filter(s);
                 } else {
                     Toast.makeText(getBaseContext(),
-                            "Not found",
+                            "Search Results not found",
                             Toast.LENGTH_LONG)
                             .show();
                 }

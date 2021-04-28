@@ -14,6 +14,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+/**
+ * RepoDatabase is one which stores and manipulate data according to DAO.
+ */
+
 @Database(entities = {RepoModel.class}, version = 1, exportSchema = false)
 public abstract class RepoDataBase extends RoomDatabase {
     public static final String DATABASE_NAME = "RepoDataBase";
