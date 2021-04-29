@@ -15,3 +15,10 @@
  **Library Used** : Retrofit 2, Room, LiveData
  
  **Architecture** : MVVM (Model-View-ViewModel)
+ 
+ ## Sample images
+ ![Progress Bar](https://github.com/Suganth-S/Trend_Hub/blob/master/Screenshot_2021-04-28-23-03-38-83.png)
+ ![Recycler View](https://github.com/Suganth-S/Trend_Hub/blob/master/Screenshot_2021-04-28-23-03-46-28.png)
+ ![Offline or Online](https://github.com/Suganth-S/Trend_Hub/blob/master/Screenshot_2021-04-28-23-06-24-79.png)
+ ![Offline Data](https://github.com/Suganth-S/Trend_Hub/blob/master/Screenshot_2021-04-28-23-06-42-21.png)
+ ![Search Filter](https://github.com/Suganth-S/Trend_Hub/blob/master/Screenshot_2021-04-28-23-05-28-88.png)
